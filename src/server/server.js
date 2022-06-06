@@ -56,6 +56,18 @@ app.get("/get_tasks", (req, res) => {
     });
   });
 });
+app.delete("/delete_task", (req, res) => {
+  let taskId = req.body.taskId;
+  let sql = `DELETE FROM Tasks WHERE id = ${taskId}`;
+  conn.query(sql, (err, results) => {
+    if (err) throw err;
+    res.status(200).json({
+      statusText: "success",
+      msg:'task deleted',
+      data: results,
+    });
+  });
+});
 app.get("/", (req, res) => {
   res.send("hello world");
 });

@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import { useAppContext } from "../AppContext";
+import $ from "jquery";
+
 const Wrapper = () => {
+  const { getTasks, checkDuplicate, isEditing } = useAppContext();
   const [values, setValues] = useState({
     task: "hello",
   });
   const addTask = () => {
+    let isDup = checkDuplicate(values.task);
+    if (isDup) {
+      alert("task alreay created");
+      return;
+    }
     fetch("http://localhost:3002/add_task", {
       method: "POST",
       headers: {
@@ -14,7 +23,8 @@ const Wrapper = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
+        getTasks();
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -25,6 +35,7 @@ const Wrapper = () => {
   };
   return (
     <div className="wrapper">
+      <h2 className="mb-3">{`${isEditing ? "edit task" : "create task"}`}</h2>
       <div className="inputWrapper">
         <input
           type="text"
@@ -33,8 +44,12 @@ const Wrapper = () => {
           id="newTask"
           onInput={(e) => changeValue(e)}
         />
-        <button type="submit" className="button" onClick={() => addTask()}>
-          create
+        <button
+          type="submit"
+          className={`button ${isEditing ? "updateTask" : "createTask"}`}
+          onClick={()=>{addTask()}}
+        >
+          {isEditing ? "save" : "create"}
         </button>
       </div>
     </div>
