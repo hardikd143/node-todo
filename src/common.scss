@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    font-family: monospace;
+    width: 100%;
+    padding: 0 10px;
+  }
+  input{
+      outline: none;
+      border: none;
+  }
+  p{
+    margin: 0;
+  }
+  button{
+      border: none;
+      outline: none;
+      background: none;
+  }
+  .button{
+      height: 30px;
+      line-height: 30px;
+      font-size: 1rem;
+      padding: 0 10px;
+      background: #303030;
+      color: #fff;
+  }
